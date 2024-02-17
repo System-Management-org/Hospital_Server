@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -65,7 +64,7 @@ class Patient(models.Model):
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone = models.CharField(max_length=200, null=True, blank=True)
     res_address = models.CharField(max_length=200)
-    registrar = models.OneToOneField(User, on_delete=models.CASCADE, null=True,blank=True, unique=False)#make foreign key once we get staff model
+    registrar = models.CharField(max_length=200, null=True, blank=True) #make foreign key once we get staff model
 
     def __str__(self):
         return self.first_name + " " + self.last_name
