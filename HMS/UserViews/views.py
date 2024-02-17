@@ -179,12 +179,17 @@ class PatientList(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = PatientSerializer(data=request.data)
+        current_user = request.user
+
+        request_data = request.data.copy()
+        request_data['registrar'] = current_user.id
+        serializer = PatientSerializer(data=request_data)
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class PatientDetail(APIView):
     def get_object(self, patient_id):

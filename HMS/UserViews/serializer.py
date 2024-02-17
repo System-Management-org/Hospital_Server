@@ -1,12 +1,14 @@
 #seialization
 from rest_framework import serializers
+
+from HMS.HMS.serializers import UserSerializer
 from .models import *
 
 class PatientSerializer(serializers.ModelSerializer):
-    
-        class Meta:
-            model = Patient
-            fields = '__all__'
+    registrar = UserSerializer()
+    class Meta:
+        model = Patient
+        fields = '__all__'
 
 class DoctorSerializer(serializers.ModelSerializer):
 
