@@ -5,7 +5,6 @@ from HMS.serializers import UserSerializer
 from .models import *
 
 class PatientSerializer(serializers.ModelSerializer):
-    registrar = UserSerializer()
     class Meta:
         model = Patient
         fields = '__all__'
