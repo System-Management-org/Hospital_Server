@@ -1,7 +1,7 @@
 #seialization
 from rest_framework import serializers
 
-from HMS.HMS.serializers import UserSerializer
+from HMS.serializers import UserSerializer
 from .models import *
 
 class PatientSerializer(serializers.ModelSerializer):
