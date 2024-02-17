@@ -12,7 +12,6 @@ class MyApiView(APIView):
         # Now you can use the current_user object as needed
         user_data = {
             'username': current_user.username,
-            'email': current_user.email,
             # Add more fields as needed
         }
 

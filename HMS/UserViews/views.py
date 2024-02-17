@@ -182,7 +182,7 @@ class PatientList(APIView):
         current_user = request.user
 
         request_data = request.data.copy()
-        request_data['registrar'] = current_user.id
+        request_data['registrar'] = current_user.username
         serializer = PatientSerializer(data=request_data)
 
         if serializer.is_valid():
