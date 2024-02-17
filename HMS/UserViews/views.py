@@ -179,10 +179,11 @@ class PatientList(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        current_user = request.user
+        current_user = request.username
 
         request_data = request.data.copy()
         request_data['registrar'] = current_user.username
+
         serializer = PatientSerializer(data=request_data)
 
         if serializer.is_valid():
