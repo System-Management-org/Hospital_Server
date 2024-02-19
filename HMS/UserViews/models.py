@@ -99,7 +99,8 @@ class CheckIn(models.Model):
     
 class Appointment(models.Model):
     patient_id = models.CharField(max_length=200)
-    name = models.CharField(max_length=200) #make foreign key once we get position of patient model
+    first_name = models.CharField(max_length=200, null=True, blank=True)
+    last_name = models.CharField(max_length=200, null=True, blank=True) #make foreign key once we get position of patient model
     appointment_time = models.DateTimeField()
     staff = models.CharField(max_length=200) #make foreign key once we get staff model also, make a case for multiple staff members
     
