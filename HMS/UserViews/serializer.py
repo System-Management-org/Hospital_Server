@@ -45,6 +45,7 @@ class staffSerializer(serializers.ModelSerializer):
 class CheckInSerializer(serializers.Serializer):
 
     class Meta:
+        model = CheckIn
         fields = '__all__'
 
 
