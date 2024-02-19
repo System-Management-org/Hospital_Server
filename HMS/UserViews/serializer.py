@@ -49,7 +49,8 @@ class CheckInSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class AppointmentSerializer(serializers.Serializer):
+class AppointmentSerializer(serializers.ModelSerializer):
 
     class Meta:
+        model= Appointment
         fields = '__all__'
