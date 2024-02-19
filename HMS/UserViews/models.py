@@ -91,7 +91,7 @@ class CheckIn(models.Model):
     patient_id = models.CharField(max_length=200)
     name = models.CharField(max_length=200) #make foreign key once we get position of patient model
     checkin_time = models.DateTimeField()
-    checkout_time = models.DateTimeField()
+    checkout_time = models.DateTimeField(null=True, blank=True)
     staff = models.CharField(max_length=200) #make foreign key once we get staff model
 
     def __str__(self):
