@@ -42,7 +42,7 @@ class staffSerializer(serializers.ModelSerializer):
             model = Staff
             fields = '__all__'
             
-class CheckInSerializer(serializers.Serializer):
+class CheckInSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CheckIn
