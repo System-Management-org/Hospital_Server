@@ -228,3 +228,17 @@ class staffList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+class CheckInList(APIView):
+    def get(self, request):
+        checked_in = CheckIn.objects.all()
+        serializer = CheckInSerializer(checked_in, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = CheckInSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
