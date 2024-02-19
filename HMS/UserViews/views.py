@@ -245,7 +245,7 @@ class CheckInList(APIView):
     
 class AppointmentsList(APIView):
     def get(self, request):
-        appointments = CheckIn.objects.all()
+        appointments = Appointment.objects.all()
         serializer = AppointmentSerializer(appointments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
