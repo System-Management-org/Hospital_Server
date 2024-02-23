@@ -15,6 +15,19 @@ class Doctor(models.Model):
     def __str__(self):
         return self.first_name + " " + self.last_name
     
+class Test(models.Model):
+    staff_id = models.CharField(max_length=200)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=50)
+    birthdate = models.DateField()
+    email = models.EmailField(max_length=200)
+    phone = models.CharField(max_length=200)
+    speciality = models.CharField(max_length=200)
+   
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name
+    
 class Nurse(models.Model):
     staff_id = models.CharField(max_length=200)
     first_name = models.CharField(max_length=200)
@@ -98,7 +111,7 @@ class CheckIn(models.Model):
         return self.patient_id + " " + self.checkin_time + " " + self.registrar
     
 class Appointment(models.Model):
-    patient_id = models.CharField(max_length=20)
+    patient_id = models.CharField(max_length=10)
     first_name = models.CharField(max_length=200, null=True, blank=True)
     last_name = models.CharField(max_length=200, null=True, blank=True) #make foreign key once we get position of patient model
     appointment_time = models.DateTimeField()
