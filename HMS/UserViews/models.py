@@ -98,7 +98,7 @@ class CheckIn(models.Model):
         return self.patient_id + " " + self.checkin_time + " " + self.registrar
     
 class Appointment(models.Model):
-    patient_id = models.CharField(max_length=200)
+    patient_id = models.CharField(max_length=20)
     first_name = models.CharField(max_length=200, null=True, blank=True)
     last_name = models.CharField(max_length=200, null=True, blank=True) #make foreign key once we get position of patient model
     appointment_time = models.DateTimeField()
