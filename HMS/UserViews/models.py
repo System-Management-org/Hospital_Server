@@ -1,5 +1,16 @@
 from django.db import models
+class FrontDeskExecutive(models.Model):
+    staff_id = models.CharField(max_length=200)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=50)
+    birthdate = models.DateField()
+    email = models.EmailField(max_length=200)
+    phone = models.CharField(max_length=200)
+    speciality = models.CharField(max_length=200)
+   
 
+    def __str__(self):
+        return self.first_name + " " + self.last_name
 
 # Create your models here.
 class Doctor(models.Model):
@@ -93,11 +104,20 @@ class CheckIn(models.Model):
     name = models.CharField(max_length=200) #make foreign key once we get position of patient model
     checkin_time = models.DateTimeField()
     checkout_time = models.DateTimeField(null=True, blank=True)
+    doctor_assigned = models.ForeignKey()
     staff = models.CharField(max_length=200) #make foreign key once we get staff model
 
     def __str__(self):
-        return self.patient_id + " " + self.checkin_time + " " + self.registrar
+        return self.patient_id + " " + self.checkin_time + " "
     
+class Users(models.Model):
+    Doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    Nurse = models.ForeignKey(Nurse, on_delete=models.CASCADE)
+    Pharmacist = models.ForeignKey(Pharmacist, on_delete=models.CASCADE)
+    Cashier = models.ForeignKey(Cashier, on_delete=models.CASCADE)
+    Front_Desk = models.ForeignKey(FrontDeskExecutive, on_delete=models.CASCADE)
+
+
 class Appointment(models.Model):
     patient_id = models.CharField(max_length=10)
     first_name = models.CharField(max_length=200, null=True, blank=True)
