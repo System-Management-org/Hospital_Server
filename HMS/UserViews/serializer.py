@@ -1,12 +1,13 @@
 #seialization
 from rest_framework import serializers
+
+from HMS.serializers import UserSerializer
 from .models import *
 
 class PatientSerializer(serializers.ModelSerializer):
-    
-        class Meta:
-            model = Patient
-            fields = '__all__'
+    class Meta:
+        model = Patient
+        fields = '__all__'
 
 class DoctorSerializer(serializers.ModelSerializer):
 
@@ -41,13 +42,15 @@ class staffSerializer(serializers.ModelSerializer):
             model = Staff
             fields = '__all__'
             
-class CheckInSerializer(serializers.Serializer):
+class CheckInSerializer(serializers.ModelSerializer):
 
     class Meta:
+        model = CheckIn
         fields = '__all__'
 
 
-class AppointmentSerializer(serializers.Serializer):
+class AppointmentSerializer(serializers.ModelSerializer):
 
     class Meta:
+        model= Appointment
         fields = '__all__'
