@@ -89,18 +89,24 @@ WSGI_APPLICATION = 'HMS.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     # 'default': {
+#     #     'ENGINE': 'django.db.backends.sqlite3',
+#     #     'NAME': BASE_DIR / 'db.sqlite3',
+#     # }
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'spmsug$HMS',
+#         'USER': 'spmsug',
+#         'PASSWORD': '.7:qBhM28AF-pzP',
+#         'HOST': 'spmsug.mysql.pythonanywhere-services.com',
+# }
+# }
+
+import dj_database_url
+
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'spmsug$HMS',
-        'USER': 'spmsug',
-        'PASSWORD': '.7:qBhM28AF-pzP',
-        'HOST': 'spmsug.mysql.pythonanywhere-services.com',
-}
+    'default': dj_database_url.parse('postgres://hms_dev_user:YQYR2Hpjw863ecixXqf4Q2z8eCPPUf9I@dpg-coinpr8l5elc73daqp90-a.oregon-postgres.render.com/hms_dev')
 }
 
 
