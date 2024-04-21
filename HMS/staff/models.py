@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class FrontDeskExecutive(models.Model):
-    staff_id = models.BigAutoField(primary_key=True, max_length=10)
+    staff_id = models.BigAutoField(primary_key=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=50)
     birthdate = models.DateField()
@@ -16,7 +16,7 @@ class FrontDeskExecutive(models.Model):
 
 
 class Doctor(models.Model):
-    staff_id = models.BigAutoField(primary_key=True, max_length=10)
+    staff_id = models.BigAutoField(primary_key=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=50)
     birthdate = models.DateField()
@@ -29,7 +29,7 @@ class Doctor(models.Model):
     
     
 class Nurse(models.Model):
-    staff_id = models.BigAutoField(primary_key=True, max_length=10)
+    staff_id = models.BigAutoField(primary_key=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=50)
     birthdate = models.DateField()
@@ -41,7 +41,7 @@ class Nurse(models.Model):
         return self.first_name + " " + self.last_name
 
 class LabTechnician(models.Model):
-    staff_id = models.BigAutoField(primary_key=True, max_length=10)
+    staff_id = models.BigAutoField(primary_key=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=50)
     birthdate = models.DateField()
@@ -53,7 +53,7 @@ class LabTechnician(models.Model):
         return self.first_name + " " + self.last_name
 
 class Pharmacist(models.Model):
-    staff_id = models.BigAutoField(primary_key=True, max_length=10)
+    staff_id = models.BigAutoField(primary_key=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=50)
     birthdate = models.DateField()
@@ -66,7 +66,7 @@ class Pharmacist(models.Model):
 
 
 class Cashier(models.Model):
-    staff_id = models.BigAutoField(primary_key=True, max_length=10)
+    staff_id = models.BigAutoField(primary_key=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=50)
     birthdate = models.DateField()

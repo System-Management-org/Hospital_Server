@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer
-from .models import Users
+from django.contrib.auth.models import User
 from django.http import Http404
 from staff.models import *
 
@@ -26,8 +26,8 @@ class UserRegistration(APIView):
     #     return Response(user_data)
     def get_object(self, email):
         try:
-            return Users.objects.get(email=email)
-        except Users.DoesNotExist:
+            return User.objects.get(email=email)
+        except User.DoesNotExist:
             raise Http404("User does not exist")
         
     def post(self, request):

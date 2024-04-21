@@ -227,6 +227,29 @@ class FrontDeskList(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
+class FrontDeskDetail(APIView):
+    def get_object(self, staff_id):
+        try:
+            return FrontDeskExecutive.objects.get(staff_id=staff_id)
+        except FrontDeskExecutive.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    def get(self, request):
+        front_desk = self.get_object(request.data["staff_id"])
+        serializer = FrontDeskSerializer(front_desk)
+        return Response(serializer.data)
+    
+    def put(self, request):
+        front_desk = self.get_object(request.data["staff_id"])
+        serializer = FrontDeskSerializer(front_desk, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, staff_id):
+        front_desk = self.get_object(request.data["staff_id"])
+        front_desk.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

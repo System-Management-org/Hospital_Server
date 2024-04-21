@@ -34,7 +34,6 @@ CORS_ALLOWED_ORIGINS = [
     # Add other allowed origins if needed
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,7 +46,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
-    'UserViews'
+    'hospital_processes',
+    'patient',
+    'accounts',
+    'staff',
 ]
 
 MIDDLEWARE = [

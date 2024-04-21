@@ -28,5 +28,7 @@ urlpatterns = [
     path('register/', MyApiView.as_view(), name='user_registration'),
     path('token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
-    path('', include('UserViews.urls')),
+    path('patient/', include('patient.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('process/', include('hospital_processes.urls'))
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

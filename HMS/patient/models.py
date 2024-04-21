@@ -3,7 +3,7 @@ from staff.models import Doctor, Nurse, Pharmacist, Staff
 
 # Create your models here.
 class Patient(models.Model):
-    patient_id = models.BigAutoField(max_length=8, primary_key=True) #generate based on number of patients previously registered
+    patient_id = models.BigAutoField(primary_key=True) #generate based on number of patients previously registered
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     birthdate = models.DateField()
@@ -18,14 +18,14 @@ class Patient(models.Model):
         return self.first_name + " " + self.last_name
     
 class Allergies(models.Model):
-    allergy_id = models.BigAutoField(primary_key=True, max_length=8)
+    allergy_id = models.BigAutoField(primary_key=True)
     patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
     allergen = models.CharField(max_length=200)
     severity_options = (('High', 'high'), ('Moderate','moderate'), ('Low','low'))
-    severity = models.CharField(choices=severity_options)
+    severity = models.CharField(choices=severity_options, max_length=20)
 
 class Immunization(models.Model):
-    immunization_id = models.BigAutoField(max_length=8, primary_key=True)
+    immunization_id = models.BigAutoField(primary_key=True)
     patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE) #ensure necessary
     vaccine = models.CharField(max_length=200)
@@ -35,7 +35,7 @@ class Immunization(models.Model):
         return self.staff.doctor.staff_id + " " + self.vaccine
 
 class Vitals(models.Model):
-    vitals = models.CharField(max_length=200, primary_key=True)
+    vital_id = models.BigAutoField(primary_key=True)
     patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
     nurse_id = models.ForeignKey(Nurse, on_delete=models.CASCADE) #ensure necessary
     date_recorded = models.DateField() #ensure necessary
@@ -44,7 +44,7 @@ class Vitals(models.Model):
     blood_pressure = models.CharField(max_length=200)
 
 class MedicalCondition(models.Model):
-    condition_id = models.CharField(max_length=8, primary_key=True)
+    condition_id = models.BigAutoField(primary_key=True)
     patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
     doctor_id = models.ForeignKey(Doctor, on_delete=models.CASCADE) #ensure necessary
     date_recorded = models.DateField() #ensure necessary
@@ -53,7 +53,7 @@ class MedicalCondition(models.Model):
     prescription = models.CharField(max_length=200)
 
 class Medication(models.Model):
-    medication_id = models.CharField(max_length=8, primary_key=True)
+    medication_id = models.BigAutoField(primary_key=True)
     patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
     doctor_id = models.ForeignKey(Doctor, on_delete=models.CASCADE) #ensure necessary
     pharmacist_id = models.ForeignKey(Pharmacist, on_delete=models.CASCADE) #ensure necessary
@@ -65,7 +65,7 @@ class Medication(models.Model):
     duration = models.CharField(max_length=200)
 
 class Hospitalization(models.Model):
-    hospitalization_id = models.CharField(max_length=8, primary_key=True)
+    hospitalization_id = models.BigAutoField(primary_key=True)
     patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
     admission_date = models.DateField()
     discharge_date = models.DateField()

@@ -123,6 +123,33 @@ class MedicationList(APIView):
         
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
+
+class MedicationDetail(APIView):
+    def get_object(self, patient_id):
+        try:
+            return Medication.objects.get(patient_id= patient_id)
+        except Medication.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def get(self, request):
+        medication = self.get_object(request.data["patient_id"])
+        serializer = MedicationSerializer(medication)
+        return Response(serializer.data)
+    
+    def put(self, request):
+        medication = self.get_object(request.data["patient_id"])
+        serializer = MedicationSerializer(medication, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request):
+        medication = self.get_object(request.data["patient_id"])
+        medication.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
 class HospitalizationList(APIView):
     def get(self, request):
         hospitalizations = Hospitalization.objects.all()
