@@ -20,7 +20,6 @@ from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth.models import User
 from rest_framework_simplejwt import views as jwt_views
-from .views import MyApiView
 
 urlpatterns = [
     # path(r'^', include(router.urls)),
