@@ -79,7 +79,7 @@ class UserRegistration(APIView):
         if serializer.is_valid():
             user = self.get_object(request.data['email'])
             #new password not equal to oldpassword and equal to confirm password
-            if request.data['new_password'] == request.data['confirm_password'] and request.data['new_password'] != request.data['password']:
+            if request.data['new_password'] == request.data['confirm_password'] and request.data['new_password'] != user.password:
                 user.password = request.data['new_password']
                 user.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)

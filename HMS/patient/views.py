@@ -15,9 +15,7 @@ class PatientList(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        request_data = request.data
-        
-        serializer = PatientSerializer(data=request_data)
+        serializer = PatientSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()

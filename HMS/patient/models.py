@@ -19,7 +19,6 @@ class Patient(models.Model):
     
 class Allergies(models.Model):
     allergy_id = models.BigAutoField(primary_key=True)
-    patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
     allergen = models.CharField(max_length=200)
     severity_options = (('High', 'high'), ('Moderate','moderate'), ('Low','low'))
     severity = models.CharField(choices=severity_options, max_length=20)
