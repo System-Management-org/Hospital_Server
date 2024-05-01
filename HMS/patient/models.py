@@ -25,6 +25,11 @@ class Patient(models.Model):
                         ("Outpatient", "Outpatient"),
                         ("Deceased", "Deceased"),
                     )
+    insurance_options = (('National', 'National'),
+                         ('Private', 'Private'),
+                         ('None', 'None'))
+    insurance_type = models.CharField(choices=insurance_options, default='None')
+    insurance_id = models.CharField(max_length=250, default=None, blank=True, null=True)
     status = models.CharField(max_length=50, choices=status_options, default=None, blank=True, null=True) #added patient status
     #added allergies and Immunizations fields to patient
     allergies = models.ManyToManyField('conditions.Allergies', blank=True)
