@@ -1,5 +1,5 @@
 from django.db import models
-from staff.models import Doctor, Nurse, Pharmacist, Staff
+from staff.models import *
 
 # Create your models here.
 class Patient(models.Model):
@@ -7,67 +7,30 @@ class Patient(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     birthdate = models.DateField()
-    gender_options = (('Male', 'male'), ('Female', 'female'), ('Other', 'other'))
+    gender_options = (('male', 'Male'), ('female', 'Female'), ('other', 'Other'))
     gender = models.CharField(max_length=200, choices=gender_options)
     email = models.EmailField(max_length=200, null=True, blank=True)
     phone = models.CharField(max_length=200, null=True, blank=True)
     res_address = models.CharField(max_length=200)
-    registrar = models.CharField(max_length=200, null=True, blank=True) #make foreign key once we get staff model
+    registrar = models.ForeignKey(Staff, max_length=200, null=True, blank=True, on_delete=models.SET_NULL) #make foreign key once we get staff model
+    status_options = (
+                        ("Checked In", "Checked In"),
+                        ("Admitted", "Admitted"),
+                        ("Under Observation", "Under Observation"),
+                        ("Discharged", "Discharged"),
+                        ("Transferred", "Transferred"),
+                        ("Surgery", "Surgery"),
+                        ("Recovery", "Recovery"),
+                        ("Emergency", "Emergency"),
+                        ("Outpatient", "Outpatient"),
+                        ("Deceased", "Deceased"),
+                    )
+    status = models.CharField(max_length=50, choices=status_options, default=None, blank=True, null=True) #added patient status
+    #added allergies and Immunizations fields to patient
+    allergies = models.ManyToManyField('conditions.Allergies', blank=True)
+    immunizations = models.ManyToManyField('conditions.Immunization', blank=True)
+
 
     def __str__(self):
         return self.first_name + " " + self.last_name
     
-class Allergies(models.Model):
-    allergy_id = models.BigAutoField(primary_key=True)
-    allergen = models.CharField(max_length=200)
-    severity_options = (('High', 'high'), ('Moderate','moderate'), ('Low','low'))
-    severity = models.CharField(choices=severity_options, max_length=20)
-
-class Immunization(models.Model):
-    immunization_id = models.BigAutoField(primary_key=True)
-    patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    staff = models.ForeignKey(Staff, on_delete=models.CASCADE) #ensure necessary
-    vaccine = models.CharField(max_length=200)
-    admission_date = models.DateField()
-    
-    def __str__(self):
-        return self.staff.doctor.staff_id + " " + self.vaccine
-
-class Vitals(models.Model):
-    vital_id = models.BigAutoField(primary_key=True)
-    patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    nurse_id = models.ForeignKey(Nurse, on_delete=models.CASCADE) #ensure necessary
-    date_recorded = models.DateField() #ensure necessary
-    temperature = models.CharField(max_length=200)
-    weight = models.CharField(max_length=200)
-    blood_pressure = models.CharField(max_length=200)
-
-class MedicalCondition(models.Model):
-    condition_id = models.BigAutoField(primary_key=True)
-    patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor_id = models.ForeignKey(Doctor, on_delete=models.CASCADE) #ensure necessary
-    date_recorded = models.DateField() #ensure necessary
-    diagnosis = models.CharField(max_length=200)
-    treatment = models.CharField(max_length=200)
-    prescription = models.CharField(max_length=200)
-
-class Medication(models.Model):
-    medication_id = models.BigAutoField(primary_key=True)
-    patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor_id = models.ForeignKey(Doctor, on_delete=models.CASCADE) #ensure necessary
-    pharmacist_id = models.ForeignKey(Pharmacist, on_delete=models.CASCADE) #ensure necessary
-    date_prescribed = models.DateField() #ensure necessary
-    drug_name = models.CharField(max_length=200)
-    dosage = models.CharField(max_length=200)
-    start_date = models.DateField()
-    end_date = models.DateField()
-    duration = models.CharField(max_length=200)
-
-class Hospitalization(models.Model):
-    hospitalization_id = models.BigAutoField(primary_key=True)
-    patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    admission_date = models.DateField()
-    discharge_date = models.DateField()
-    reason = models.CharField(max_length=200)
-    ward = models.CharField(max_length=200) #room number
-    bed = models.CharField(max_length=200) #bed number

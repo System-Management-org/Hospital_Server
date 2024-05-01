@@ -1,6 +1,7 @@
 from django.db import models
+from conditions.models import *
 from staff.models import Doctor, Staff
-from patient.models import Patient, MedicalCondition
+from patient.models import *
 # Create your models here.
 
 class CheckIn(models.Model):

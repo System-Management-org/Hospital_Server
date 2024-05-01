@@ -1,5 +1,6 @@
 from django.db import models
 
+from conditions.models import *
 from patient.models import *
 
 # Create your models here.
