@@ -25,7 +25,11 @@ urlpatterns = [
     # path(r'^', include(router.urls)),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('conditions/', include('conditions.urls')),
+    path('doctor/', include('doctor.urls')),
     path('patient/', include('patient.urls')),
     path('process/', include('hospital_processes.urls')),
     path('staff/', include('staff.urls')),
+    path('inventory/', include('inventory.urls')),
+    path('cashier/', include('cashier.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
